@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use Illuminate\Http\Request;
+use App\Mail\SupportRequest;
+use Illuminate\Support\Facades\Mail;
 
 class MessageController extends Controller
 {
@@ -35,7 +37,24 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required',
+            'message' => 'required',
+        ]);
+
+        $message = new Message;
+        $data = new \StdClass;
+        $message->name = $data->name = $request->input('name');
+        $message->email = $data->email = $request->input('email');
+        $message->message = $data->message = $request->input('message');
+
+        $message->save();
+
+        Mail::to(['email' => 'dieter@donnert.us'])->send(new SupportRequest($data));
+
+
+        return redirect('/')->with('success', 'Message Sent');
     }
 
     /**

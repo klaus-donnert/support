@@ -9,8 +9,16 @@
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
+@include('include.navbar')
 <div class="container">
+    @include('include.system.messages')
     @yield('content')
 </div>
+<footer class="text-center">
+    <br>
+    <br>
+    <p>Copyright &copy; 2018 Klaus Donnert</p>
+</footer>
+<script src="/js/app.js"></script>
 </body>
 </html>

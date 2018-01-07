@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'MessageController@create');
+Route::resource('message', 'MessageController');
